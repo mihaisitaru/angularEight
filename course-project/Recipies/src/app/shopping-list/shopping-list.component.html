@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-xs-10">
+    <app-shopping-edit></app-shopping-edit>
+    <hr />
+    <ul
+      class="list-group"
+      *ngIf="ingredients.length > 0; else shoppingListEmpty"
+    >
+      <a
+        (mouseenter)="ingredient.displayRemoveBtn = true"
+        (mouseleave)="ingredient.displayRemoveBtn = false"
+        class="list-group-item"
+        style="cursor: pointer"
+        *ngFor="let ingredient of ingredients; let i = index"
+        (click)="onEditItem(i)"
+      >
+        <span>{{ ingredient.amount }} {{ ingredient.name }}</span>
+        <button
+          *ngIf="ingredient.displayRemoveBtn"
+          class="btn btn-xs btn-primary pull-right"
+          type="button"
+          (click)="onRemoveIngredient(ingredient)"
+        >
+          Remove
+        </button>
+      </a>
+    </ul>
+    <ng-template #shoppingListEmpty>
+      The shopping list is empty. Please add ingredients in the shopping list!
+    </ng-template>
+  </div>
+</div>
