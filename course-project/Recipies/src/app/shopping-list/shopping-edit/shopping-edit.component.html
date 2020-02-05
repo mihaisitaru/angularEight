@@ -18,6 +18,7 @@
           <input
             id="amount"
             type="number"
+            min="0"
             class="form-control"
             name="amount"
             ngModel
@@ -41,11 +42,6 @@
           <button class="btn btn-info" type="button" (click)="onReset()">
             Reset
           </button>
-        </div>
-      </div>
-      <div class="row" *ngIf="inputNotValid">
-        <div class="col-xs-12 text-warning">
-          The values inserted are not valid!
         </div>
       </div>
     </form>

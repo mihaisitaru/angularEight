@@ -4,7 +4,7 @@
       <button
         type="button"
         class="navbar-toggle"
-        (click)="collapsed = !collapse"
+        (click)="collapsed = !collapsed"
       >
         <span class="icon-bar" *ngFor="let iconBar of [1, 2, 3]"></span>
       </button>
@@ -13,7 +13,14 @@
     <div class="navbar-collapse" [class.collapse]="collapsed">
       <ul class="nav navbar-nav">
         <li role="presentation" routerLinkActive="active">
-          <a routerLink="/recipes">Recipes</a>
+          <a routerLink="/recipes" *ngIf="isAuthenticated">Recipes</a>
+        </li>
+        <li
+          role="presentation"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <a routerLink="/auth" *ngIf="!isAuthenticated">Authenticate</a>
         </li>
         <li
           role="presentation"
@@ -24,13 +31,14 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown" appDropdown>
+        <li><a style="cursor: pointer" *ngIf="isAuthenticated" (click)="onLogout()">Logout</a></li>
+        <li class="dropdown" appDropdown *ngIf="isAuthenticated">
           <a style="cursor: pointer" class="dropdown-toggle" role="button"
             >Manage <span class="caret"></span
           ></a>
           <ul class="dropdown-menu">
-            <li><a style="cursor: pointer">Save data</a></li>
-            <li><a style="cursor: pointer">Fetch data</a></li>
+            <li><a style="cursor: pointer" (click)="onStoreRecipes()">Save data</a></li>
+            <li><a style="cursor: pointer" (click)="onFetchRecipes()">Fetch data</a></li>
           </ul>
         </li>
       </ul>

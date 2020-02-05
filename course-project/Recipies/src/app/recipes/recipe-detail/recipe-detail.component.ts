@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Recipe } from '../recipe.model';
 import { ShoppingListService } from 'src/app/shopping-list/shopping-list.service';
 import { ActivatedRoute, Router, Params, Data } from '@angular/router';
@@ -24,6 +24,9 @@ export class RecipeDetailComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       // tslint:disable-next-line: no-string-literal
       this.id = +params.id;
+      if (this.id > this.recipeService.getRecipes().length - 1) {
+        this.router.navigate(['/recipes']);
+      }
       this.recipe = this.recipeService.getRecipe(this.id);
     });
   }
@@ -50,6 +53,6 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onEditRecipe() {
-    this.router.navigate(['edit'], {relativeTo: this.route});
+    this.router.navigate(['edit'], { relativeTo: this.route });
   }
 }
